@@ -28,13 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/access/role/create', [RoleController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/role/create']);
     Route::get('/access/role/edit/{id}', [RoleController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/role/edit']);
     Route::post('/access/role/update/{id}', [RoleController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/role/update']);
-    Route::post('/access/role/delete/{id}', [RoleController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/role/delete']);
+    Route::delete('/access/role/delete/{id}', [RoleController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/role/delete']);
 
-
+    Route::get('/access/menu/getDataAjax', [MenuController::class, 'getDataAjax'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu']);
     Route::get('/access/menu', [MenuController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu']);
     Route::post('/access/menu/create', [MenuController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu/create']);
-    Route::post('/access/menu/update', [MenuController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu/update']);
-    Route::post('/access/menu/delete', [MenuController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu/delete']);
+    Route::get('/access/menu/edit/{id}', [MenuController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu/edit']);
+    Route::post('/access/menu/update/{id}', [MenuController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu/update']);
+    Route::delete('/access/menu/delete/{id}', [MenuController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/menu/delete']);
 
     Route::get('/access/submenu', [SubMenuController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/submenu']);
     Route::post('/access/submenu/create', [SubMenuController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/submenu/create']);
