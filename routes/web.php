@@ -8,6 +8,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SubMenuController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,13 +70,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/master/user/update/{id}', [UserController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/update']);
     Route::post('/master/user/delete/{id}', [UserController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/delete']);
 
-    Route::get('/master/tag', [UserController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag']);
-    Route::post('/master/tag/create', [UserController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/create']);
-    Route::post('/master/tag/update', [UserController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/update']);
-    Route::post('/master/tag/delete', [UserController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/delete']);
+    Route::get('/master/tag/getDataAjax', [TagController::class, 'getDataAjax'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag']);
+    Route::get('/master/tag', [TagController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag']);
+    Route::post('/master/tag/create', [TagController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/create']);
+    Route::get('/master/tag/edit/{id}', [TagController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/edit']);
+    Route::post('/master/tag/update/{id}', [TagController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/update']);
+    Route::post('/master/tag/delete/{id}', [TagController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/delete']);
 
     Route::get('/cms/post', [UserController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post']);
     Route::post('/cms/post/create', [UserController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/create']);
+    Route::get('/cms/post/edit/{id}', [UserController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/edit']);
     Route::post('/cms/post/update', [UserController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/update']);
     Route::post('/cms/post/delete', [UserController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/delete']);
 
