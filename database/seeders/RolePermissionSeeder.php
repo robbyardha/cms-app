@@ -26,11 +26,11 @@ class RolePermissionSeeder extends Seeder
 
         // Access Menu
         Permission::updateOrCreate(['name' => '/access'], ['name' => '/access']);
-        Permission::updateOrCreate(['name' => '/access/role'], ['name' => '/access/role']);
-        Permission::updateOrCreate(['name' => '/access/role/create'], ['name' => '/access/role/create']);
-        Permission::updateOrCreate(['name' => '/access/role/edit'], ['name' => '/access/role/edit']);
-        Permission::updateOrCreate(['name' => '/access/role/update'], ['name' => '/access/role/update']);
-        Permission::updateOrCreate(['name' => '/access/role/delete'], ['name' => '/access/role/delete']);
+        Permission::updateOrCreate(['name' => '/access/menu'], ['name' => '/access/menu']);
+        Permission::updateOrCreate(['name' => '/access/menu/create'], ['name' => '/access/menu/create']);
+        Permission::updateOrCreate(['name' => '/access/menu/edit'], ['name' => '/access/menu/edit']);
+        Permission::updateOrCreate(['name' => '/access/menu/update'], ['name' => '/access/menu/update']);
+        Permission::updateOrCreate(['name' => '/access/menu/delete'], ['name' => '/access/menu/delete']);
 
         // Access Sub Menu
         Permission::updateOrCreate(['name' => '/access/submenu'], ['name' => '/access/submenu']);
@@ -71,10 +71,10 @@ class RolePermissionSeeder extends Seeder
 
         // Master Post
         Permission::updateOrCreate(['name' => '/cms'], ['name' => '/cms']);
-        Permission::updateOrCreate(['name' => '/cms/tag'], ['name' => '/cms/tag']);
-        Permission::updateOrCreate(['name' => '/cms/tag/create'], ['name' => '/cms/tag/create']);
-        Permission::updateOrCreate(['name' => '/cms/tag/edit'], ['name' => '/cms/tag/edit']);
-        Permission::updateOrCreate(['name' => '/cms/tag/update'], ['name' => '/cms/tag/update']);
-        Permission::updateOrCreate(['name' => '/cms/tag/delete'], ['name' => '/cms/tag/delete']);
+        Permission::updateOrCreate(['name' => '/cms/post'], ['name' => '/cms/post']);
+        Permission::updateOrCreate(['name' => '/cms/post/create'], ['name' => '/cms/post/create']);
+        Permission::updateOrCreate(['name' => '/cms/post/edit'], ['name' => '/cms/post/edit']);
+        Permission::updateOrCreate(['name' => '/cms/post/update'], ['name' => '/cms/post/update']);
+        Permission::updateOrCreate(['name' => '/cms/post/delete'], ['name' => '/cms/post/delete']);
     }
 }

@@ -54,8 +54,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/access/permission/delete/{id}', [PermissionController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/permission/delete']);
 
 
+    Route::get('/access/give-permission/getDataAjax', [GivePermissionController::class, 'getDataAjax'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/give-permission']);
     Route::get('/access/give-permission', [GivePermissionController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/give-permission']);
     Route::post('/access/give-permission/create', [GivePermissionController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/give-permission/create']);
+    Route::get('/access/give-permission/edit/{id}', [GivePermissionController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/give-permission/edit']);
     Route::post('/access/give-permission/update', [GivePermissionController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/give-permission/update']);
     Route::post('/access/give-permission/delete', [GivePermissionController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/give-permission/delete']);
 

@@ -28,6 +28,17 @@ if (!function_exists('loadPermissionByUrl')) {
     }
 }
 
+if (!function_exists('loadPermissionByUrlLite')) {
+    function loadPermissionByUrlLite(string $url, $length = 0)
+    {
+        return DB::table("permissions")
+            ->select("name")
+            ->whereRaw("substr(name, 1, ?) = ?", [$length, $url])
+            ->get();
+    }
+}
+
+
 function requiredFieldLabel($label)
 {
     return $label . ' <span style="color: red;">*</span>';

@@ -3,15 +3,18 @@
     <div class="modal-dialog modal-lg bounceIn  animated">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Access</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Client</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" enctype="multipart/form-data" id="edit-form-client">
                     @csrf
-
-                    <table class="table" id="permissions-table">
-                    </table>
+                    <div class="mb-3">
+                        <label for="name_edit" class="form-label">{!! requiredFieldLabel('Nama') !!}</label>
+                        <input type="text" class="form-control" name="name_edit" id="name_edit">
+                        <small class="text-muted">Contoh : /access/give-permission (sesuaikan dengan uri segment dari
+                            menu dan url submenu)</small>
+                    </div>
 
                 </form>
             </div>
