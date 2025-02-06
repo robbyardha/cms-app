@@ -18,7 +18,7 @@ class SubMenuSeeder extends Seeder
             "name" => "Role",
             "url" => "/role",
             "order" => 0,
-            "is_show" => 0
+            "is_show" => 1
         ]);
 
         SubMenu::create([
@@ -26,7 +26,7 @@ class SubMenuSeeder extends Seeder
             "name" => "Menu",
             "url" => "/menu",
             "order" => 1,
-            "is_show" => 0
+            "is_show" => 1
         ]);
 
         SubMenu::create([
@@ -34,7 +34,7 @@ class SubMenuSeeder extends Seeder
             "name" => "Sub menu",
             "url" => "/submenu",
             "order" => 2,
-            "is_show" => 0
+            "is_show" => 1
         ]);
 
         SubMenu::create([
@@ -42,7 +42,7 @@ class SubMenuSeeder extends Seeder
             "name" => "Permission",
             "url" => "/permission",
             "order" => 3,
-            "is_show" => 0
+            "is_show" => 1
         ]);
 
         SubMenu::create([
@@ -50,6 +50,7 @@ class SubMenuSeeder extends Seeder
             "name" => "Give permission",
             "url" => "/give-permission",
             "order" => 4,
+            "is_show" => 1
         ]);
 
         SubMenu::create([
@@ -57,18 +58,21 @@ class SubMenuSeeder extends Seeder
             "name" => "User",
             "url" => "/user",
             "order" => 0,
+            "is_show" => 1
         ]);
         SubMenu::create([
             "menu_id" => 3,
             "name" => "Tags",
             "url" => "/tag",
             "order" => 1,
+            "is_show" => 1
         ]);
         SubMenu::create([
             "menu_id" => 4,
             "name" => "Post",
             "url" => "/post",
-            "order" => 2,
+            "order" => 0,
+            "is_show" => 1
         ]);
     }
 }

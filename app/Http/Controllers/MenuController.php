@@ -11,6 +11,35 @@ use Yajra\DataTables\Facades\DataTables;
 
 class MenuController extends Controller
 {
+    public function select2(Request $request)
+    {
+        $search = $request->get('q');
+        $page = $request->get('page', 1);
+        $query = Menu::query();
+
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('url', 'like', '%' . $search . '%');
+        }
+        $perPage = 10;
+        $menus = $query->paginate($perPage, ['id', 'name', 'url']);
+
+        $formattedMenus = $menus->getCollection()->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'text' => $user->name,
+            ];
+        });
+
+        return response()->json([
+            'results' => $formattedMenus,
+            'pagination' => [
+                'more' => $menus->hasMorePages(),
+            ],
+        ]);
+    }
+
+
     public function getDataAjax()
     {
         $data = Menu::orderBy('name', 'asc');
@@ -20,7 +49,7 @@ class MenuController extends Controller
                 return $data->icon ? "<i class='bx $data->icon text-dark'></i>" : ' No Icon';
             })
             ->addColumn('name', function ($data) {
-                return $data->icon ? $data->name : ' No Data';
+                return $data->name ? $data->name : ' No Data';
             })
             ->addColumn('url', function ($data) {
                 return $data->url ? $data->url : ' No Data';
@@ -86,26 +115,6 @@ class MenuController extends Controller
         return response()->json(['success' => 'Data saved successfully!'], 200);
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreMenuRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Menu $menu)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $data = Menu::findOrFail($id);
@@ -115,9 +124,6 @@ class MenuController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -160,14 +166,6 @@ class MenuController extends Controller
 
             return response()->json(['success' => 'Data updated successfully!'], 200);
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Menu $menu)
-    {
-        //
     }
 
     public function delete($id)

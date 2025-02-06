@@ -35,11 +35,21 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables/bs5/dataTables.bootstrap5.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables/bs5/responsive.bootstrap5.min.css') }}" />
 
+    {{-- SELECT2 --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/css/select2.min.css') }}" />
+
+    {{-- FLATPICKR --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.min.css') }}" />
+
+    {{-- DROPIFY --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/dropify/css/dropify.css') }}" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/arr-color-custom/arr-style.css') }}">
 
     <!-- Page CSS -->
 

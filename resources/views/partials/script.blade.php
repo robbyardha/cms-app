@@ -26,6 +26,12 @@
 <!-- FLATPICKR -->
 <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.min.js') }}"></script>
 
+<!-- DROPIFY -->
+<script src="{{ asset('assets/vendor/libs/dropify/js/dropify.js') }}"></script>
+
+<!-- CKEDITOR -->
+<script src="{{ asset('assets/vendor/libs/ckeditor/ckeditor.js') }}"></script>
+
 {{-- SWEET ALERT --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -49,4 +55,170 @@
             button.text(buttonText);
         }
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+        $('.select2-multiple').select2();
+        $('.select2-tambah-modal').select2({
+            dropdownParent: $('#tambah_modal'),
+        })
+        $('.select2-ubah-modal').select2({
+            dropdownParent: $('#ubah_modal'),
+        })
+        $('.select2-cari-modal').select2({
+            dropdownParent: $('#cari_modal'),
+        })
+        $('.select2-multiple-disabled').select2({
+            disabled: true
+        });
+        $('#mySelect2Modal').select2({
+            dropdownParent: $('#myModalSelect2')
+        });
+        $('.select22').select2({
+            dropdownParent: $('#exampleModal')
+        });
+
+
+        $('.modal').on('shown.bs.modal', function() {
+            $(this).find('.dateTimePickr').flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i:s",
+                disableMobile: true
+            });
+        });
+
+        $(".dateTimePickrForm").flatpickr({
+            enableTime: false,
+            dateFormat: "Y-m-d",
+            disableMobile: true,
+            maxDate: "today"
+        })
+
+        $(".dateTimePickrForm2").flatpickr({
+            enableTime: false,
+            dateFormat: "Y-m-d",
+            disableMobile: true,
+        })
+
+        $(".timePickrForm").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        })
+
+        $(".datePickerWithDefault").flatpickr({
+            enableTime: false,
+            dateFormat: "Y-m-d",
+            maxDate: "today",
+            defaultDate: (new Date()).toISOString().split('T')[
+                0],
+        });
+
+
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Letakkan file disini atau klik untuk memilih file yang diupload',
+                'replace': 'Letakkan file disini atau klik untuk mengganti file',
+                'remove': 'Hapus',
+                'error': 'Ooops, something wrong appended.'
+            },
+            error: {
+                'fileSize': 'File terlalu besar (3 Mb max).'
+            }
+        });
+
+
+        if ($("#quote").length) {
+
+            $.ajax({
+                type: "GET",
+                url: "https://katanime.vercel.app/api/getrandom",
+                dataType: "json",
+                success: function(response) {
+
+                    if (response.sukses) {
+
+                        $("#quote").html(response.result[0].english)
+
+                    }
+
+                }
+            });
+        }
+
+
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        CKEDITOR.replace('editor', {
+            height: 700,
+
+            filebrowserUploadUrl: '{{ route('ckeditor.upload') }}',
+            filebrowserUploadMethod: 'form',
+            extraPlugins: 'uploadimage',
+            uploadUrl: '{{ route('ckeditor.upload') }}',
+            filebrowserUploadParams: {
+                _token: '{{ csrf_token() }}'
+            },
+            filebrowserImageUploadUrl: '{{ route('ckeditor.upload') }}',
+            imageUploadUrl: '{{ route('ckeditor.upload') }}',
+        });
+
+
+        $('#menu-select').select2({
+            placeholder: 'Pilih Menu',
+            ajax: {
+                url: '{{ route('menus.select2') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        page: params.page || 1
+                    };
+                },
+                processResults: function(data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.results,
+                        pagination: {
+                            more: data.pagination.more
+                        }
+                    };
+                },
+                cache: true
+            },
+        });
+
+        $('#add_modal').on('shown.bs.modal', function() {
+            setTimeout(function() {
+                $('#menu-select-modal').select2({
+                    placeholder: 'Pilih Menu',
+                    ajax: {
+                        url: '{{ route('menus.select2') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term,
+                                page: params.page || 1
+                            };
+                        },
+                        processResults: function(data, params) {
+                            params.page = params.page || 1;
+                            return {
+                                results: data.results,
+                                pagination: {
+                                    more: data.pagination.more
+                                }
+                            };
+                        },
+                        cache: true
+                    },
+                });
+            }, 100);
+        });
+
+
+    });
 </script>
