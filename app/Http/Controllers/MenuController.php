@@ -55,7 +55,7 @@ class MenuController extends Controller
                 return $data->url ? $data->url : ' No Data';
             })
             ->addColumn('action', function ($data) {
-                return view('role.action')->with('data', $data);
+                return view('menu.action')->with('data', $data);
             })
             ->rawColumns(["actions", "icon"])
             ->make(true);

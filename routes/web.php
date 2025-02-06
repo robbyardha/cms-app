@@ -62,10 +62,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/access/give-permission/delete', [GivePermissionController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/access/give-permission/delete']);
 
 
+    Route::get('/master/user/getDataAjax', [UserController::class, 'getDataAjax'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user']);
     Route::get('/master/user', [UserController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user']);
     Route::post('/master/user/create', [UserController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/create']);
-    Route::post('/master/user/update', [UserController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/update']);
-    Route::post('/master/user/delete', [UserController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/delete']);
+    Route::get('/master/user/edit/{id}', [UserController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/edit']);
+    Route::post('/master/user/update/{id}', [UserController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/update']);
+    Route::post('/master/user/delete/{id}', [UserController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/user/delete']);
 
     Route::get('/master/tag', [UserController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag']);
     Route::post('/master/tag/create', [UserController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/create']);

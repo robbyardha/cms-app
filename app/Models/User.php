@@ -49,6 +49,30 @@ class User extends Authenticatable
         ];
     }
 
+    public static function get_user()
+    {
+        $query = DB::table("users")
+            // ->select("users.*", "roles.name as roles_name")
+            ->select("users.*")
+            ->join("model_has_roles", "users.id", "=", "model_has_roles.model_id")
+            ->join("roles", "model_has_roles.role_id", "=", "roles.id")
+            ->whereNotIn("roles.name", ["developer", "superadmin"])
+            ->distinct()->get();
+        return $query;
+    }
+
+    public static function get_user_roles(int $user_id)
+    {
+        $query = DB::table("model_has_roles")
+            ->select("roles.name", "roles.id")
+            ->join("roles", "model_has_roles.role_id", "=", "roles.id")
+            ->whereRaw("model_id='$user_id'")
+            ->get()->toArray();
+
+        return $query;
+    }
+
+
     public static function insert_user(array $datas, array $roles)
     {
         try {
