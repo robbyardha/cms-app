@@ -30,6 +30,7 @@ class Post extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
+
     public static function likePost($id)
     {
         $post = Post::find($id);

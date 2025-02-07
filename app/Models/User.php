@@ -130,4 +130,15 @@ class User extends Authenticatable
             ->whereRaw("roles.name NOT IN ('developer', 'superadmin')")->get();
         return $query;
     }
+
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function hasLiked(Post $post)
+    {
+        return $this->likes()->where('likeable_id', $post->id)->where('likeable_type', Post::class)->exists();
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicBlogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SubMenuController;
 use App\Http\Controllers\TagController;
@@ -21,8 +22,16 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified', 'role_or_permission:developer|penulis'])->name('dashboard');
 
+Route::get('/', [PublicBlogController::class, 'index'])->name('public.blog.index');
+Route::post('/blog/{postId}/comment', [PublicBlogController::class, 'storeComment'])->name('public.blog.comment');
+Route::post('/blog/{postId}/like', [PublicBlogController::class, 'storeLike'])->name('public.blog.like');
+Route::get('/blog/{slug}', [PublicBlogController::class, 'show'])->name('public.blog.show');
+
+
 Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified', 'role_or_permission:developer|/dashboard']);
+
+
+    // Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified', 'role_or_permission:developer|/dashboard']);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified', 'role_or_permission:developer|/dashboard']);
 
 
