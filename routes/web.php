@@ -84,7 +84,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/cms/post/edit/{id}', [PostController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/edit']);
     Route::post('/cms/post/update', [PostController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/update']);
     Route::post('/cms/post/delete/{id}', [PostController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/delete']);
-    Route::post('/cms/post/publish', [PostController::class, 'publish'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/publish']);
+    Route::post('/cms/post/publish/{id}', [PostController::class, 'publish'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/publish']);
+    Route::post('/cms/post/unpublish/{id}', [PostController::class, 'unpublish'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/publish']);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

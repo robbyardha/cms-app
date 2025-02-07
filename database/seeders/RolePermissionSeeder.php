@@ -77,5 +77,6 @@ class RolePermissionSeeder extends Seeder
         Permission::updateOrCreate(['name' => '/cms/post/update'], ['name' => '/cms/post/update']);
         Permission::updateOrCreate(['name' => '/cms/post/delete'], ['name' => '/cms/post/delete']);
         Permission::updateOrCreate(['name' => '/cms/post/publish'], ['name' => '/cms/post/publish']);
+        Permission::updateOrCreate(['name' => '/cms/post/unpublish'], ['name' => '/cms/post/unpublish']);
     }
 }

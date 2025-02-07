@@ -152,6 +152,91 @@
             });
 
 
+            $('body').on('click', '.btn-show-modal-publish', function() {
+                let id = $(this).attr('data-id');
+
+                var table = $('#myTable').DataTable();
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Mempublikasikan post dapat dibaca oleh kalangan public",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, publish!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: `/cms/post/publish/${id}`,
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Published!',
+                                        'Data telah berhasil dipublikasikan.',
+                                        'success'
+                                    );
+                                    location.reload();
+                                }
+                            },
+                            error: function(error) {
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Ada masalah saat mempublikasikan data.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+
+
+            $('body').on('click', '.btn-show-modal-unpublish', function() {
+                let id = $(this).attr('data-id');
+
+                var table = $('#myTable').DataTable();
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Menarik publikasi post berdampak take down dari kalangan umum",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, take down!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: `/cms/post/unpublish/${id}`,
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Unpublished!',
+                                        'Data telah berhasil ditake down.',
+                                        'success'
+                                    );
+                                    location.reload();
+                                }
+                            },
+                            error: function(error) {
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Ada masalah saat take down data.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+
+
+
         });
     </script>
 @endsection

@@ -163,12 +163,42 @@ class PostController extends Controller
         }
     }
 
+
     public function delete($id)
     {
         $data = Post::find($id);
         if ($data) {
             $data->delete();
             return response()->json(['success' => true, 'message' => 'Data deleted successfully!']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Data not found!'], 404);
+        }
+    }
+
+    public function publish($id)
+    {
+        $data = Post::find($id);
+        if ($data) {
+            $data->is_published = 1;
+            $data->published_by = auth()->user()->name;
+            $data->save();
+
+            return response()->json(['success' => true, 'message' => 'Data published successfully!']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Data not found!'], 404);
+        }
+    }
+
+
+    public function unpublish($id)
+    {
+        $data = Post::find($id);
+        if ($data) {
+            $data->is_published = 0;
+            $data->published_by = auth()->user()->name;
+            $data->save();
+
+            return response()->json(['success' => true, 'message' => 'Data unpublished successfully!']);
         } else {
             return response()->json(['success' => false, 'message' => 'Data not found!'], 404);
         }
