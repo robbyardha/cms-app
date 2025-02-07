@@ -14,6 +14,24 @@ CMS App is an open-source Content Management System built with Laravel. It provi
 1. **[Laragon](https://laragon.org/)**: A fast and powerful development environment for PHP, MySQL, and more. Ideal for Laravel development on Windows.
 2. **[Laravel Herd](https://herd.laravel.com/docs/macos/getting-started/installation)**: A macOS-specific tool for setting up local environments with Laravel.
 
+## Feature
+
+-   [ ] Access Management (Laravel Spatie)
+-   [ ] Write Post
+-   [ ] Access Publish Post
+-   [ ] Comment Post
+-   [ ] Like Post
+-   [ ] View Landing Page
+-   [ ] API Post & User
+-   [ ] Use Laravel Breeze
+-   [ ] User Allow Login & Register
+-   [ ] Custom Admin Panel
+-   [ ] Custom Landing Page
+-   [ ] Use Library CKEditor
+-   [ ] Use Library Select2
+-   [ ] Use Library Datatables Yajra
+-   [ ] Use Library AOS
+
 ---
 
 ## Installation Steps
