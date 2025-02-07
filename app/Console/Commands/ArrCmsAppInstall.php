@@ -56,6 +56,7 @@ class ArrCmsAppInstall extends Command
             $envContent = File::get($envPath);
 
             $envContent = preg_replace('/^DB_CONNECTION=.*$/m', 'DB_CONNECTION=sqlite', $envContent);
+            $envContent = preg_replace('/^APP_URL=.*$/m', 'APP_URL=https://cms-app.test', $envContent);
             // $envContent = preg_replace('/^DB_DATABASE=.*$/m', 'DB_DATABASE=' . database_path('database.sqlite'), $envContent);
 
             File::put($envPath, $envContent);
