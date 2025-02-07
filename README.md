@@ -60,6 +60,25 @@ CMS App is an open-source Content Management System built with Laravel. It provi
 
     ```
 
+5. **Login To Developer Account**
+
+    Login Use Developer Account to give permission another role
+
+    ```bash
+    username : developer
+    password : developer
+
+    ```
+
+6. **Give Access Permission To Write A Post**
+
+    Give Permission another role to Write A Post
+
+    ```bash
+    Goto Menu Access -> Give Permission -> Select Role -> Edit Permission -> Check Access CMS read and Access All Post
+
+    ```
+
 ## API Documentation
 
 1. **Login User**
