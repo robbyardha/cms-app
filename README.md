@@ -16,21 +16,21 @@ CMS App is an open-source Content Management System built with Laravel. It provi
 
 ## Feature
 
--   [ ] Access Management (Laravel Spatie)
--   [ ] Write Post
--   [ ] Access Publish Post
--   [ ] Comment Post
--   [ ] Like Post
--   [ ] View Landing Page
--   [ ] API Post & User
--   [ ] Use Laravel Breeze
--   [ ] User Allow Login & Register
--   [ ] Custom Admin Panel
--   [ ] Custom Landing Page
--   [ ] Use Library CKEditor
--   [ ] Use Library Select2
--   [ ] Use Library Datatables Yajra
--   [ ] Use Library AOS
+-   [x] Access Management (Laravel Spatie)
+-   [x] Write Post
+-   [x] Access Publish Post
+-   [x] Comment Post
+-   [x] Like Post
+-   [x] View Landing Page
+-   [x] API Post & User
+-   [x] Use Laravel Breeze
+-   [x] User Allow Login & Register
+-   [x] Custom Admin Panel
+-   [x] Custom Landing Page
+-   [x] Use Library CKEditor
+-   [x] Use Library Select2
+-   [x] Use Library Datatables Yajra
+-   [x] Use Library AOS
 
 ---
 
