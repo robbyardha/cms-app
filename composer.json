@@ -9,6 +9,7 @@
         "php": "^8.2",
         "cviebrock/eloquent-sluggable": "^11.0",
         "laravel/framework": "^11.31",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "spatie/laravel-permission": "^6.13",
         "yajra/laravel-datatables-oracle": "11.0"
