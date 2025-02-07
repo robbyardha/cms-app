@@ -65,6 +65,28 @@ class Post extends Model
         return $query->get();
     }
 
+    public static function fetchAllPost()
+    {
+        $posts = Post::with('tags')->get();
+
+        $postsWithTags = $posts->map(function ($post) {
+            $tagIds = $post->tags->pluck('id')->implode(',');
+            $tagNames = $post->tags->pluck('name')->implode(',');
+
+            $post->tag_ids = $tagIds;
+            $post->tag_names = $tagNames;
+
+            return $post;
+        });
+
+        return $postsWithTags;
+    }
+
+    public function getCommentsForPost($postId)
+    {
+        return Comment::where('post_id', $postId)->get();
+    }
+
 
     /**
      * Return the sluggable configuration array for this model.

@@ -62,7 +62,122 @@ CMS App is an open-source Content Management System built with Laravel. It provi
 
 ## API Documentation
 
-Comin Soon...
+1. **Login User**
+
+    For Login User to get data user
+
+    ```bash
+    METHOD : POST
+    ```
+
+    ```bash
+    ENDPOINT : /api/login
+    ```
+
+    Use body
+
+    | **Key**           | **Value**                            |
+    | ----------------- | ------------------------------------ |
+    | api_key           | you can see in .env (SECRET_KEY_APP) |
+    | username_or_email | username or email                    |
+    | password          | password                             |
+
+2. **Logout User**
+
+    For Logout User to destroy data session
+
+    ```bash
+    METHOD : GET
+    ```
+
+    ```bash
+    ENDPOINT : /api/logout
+    ```
+
+    Use body
+
+    | **Key** | **Value**                            |
+    | ------- | ------------------------------------ |
+    | api_key | you can see in .env (SECRET_KEY_APP) |
+    | iduser  | iduser from login                    |
+
+3. **Fetch All Post**
+
+    For Fetch Data All Post & Tag
+
+    ```bash
+    METHOD : GET
+    ```
+
+    ```bash
+    ENDPOINT : /api/post
+    ```
+
+    Use body
+
+    | **Key** | **Value**                            |
+    | ------- | ------------------------------------ |
+    | api_key | you can see in .env (SECRET_KEY_APP) |
+
+4. **Show Comment By Specific Post**
+
+    To Show All Comment By Post Id
+
+    ```bash
+    METHOD : POST
+    ```
+
+    ```bash
+    ENDPOINT : /api/show-comment-post
+    ```
+
+    Use body
+
+    | **Key** | **Value**                            |
+    | ------- | ------------------------------------ |
+    | api_key | you can see in .env (SECRET_KEY_APP) |
+    | post_id | get from fetch all post              |
+
+5. **Like A Post**
+
+    To Like A Post (login required).
+
+    ```bash
+    METHOD : POST
+    ```
+
+    ```bash
+    ENDPOINT : /api/like-post
+    ```
+
+    Use body
+
+    | **Key** | **Value**                            |
+    | ------- | ------------------------------------ |
+    | api_key | you can see in .env (SECRET_KEY_APP) |
+    | post_id | get from fetch all post              |
+    | user_id | get from login                       |
+
+6. **Comment A Post**
+
+    To Comment A Post (login required).
+
+    ```bash
+    METHOD : POST
+    ```
+
+    ```bash
+    ENDPOINT : /api/comment-post
+    ```
+
+    Use body
+
+    | **Key** | **Value**                            |
+    | ------- | ------------------------------------ |
+    | api_key | you can see in .env (SECRET_KEY_APP) |
+    | post_id | get from fetch all post              |
+    | user_id | get from login                       |
+    | comment | your comment                         |
 
 ### Changes & Improvements:
 
