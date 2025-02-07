@@ -20,10 +20,12 @@ class PublicBlogController extends Controller
                 $query->where('name', $request->tag);
             });
         }
+        $query->where('is_published', 1);
 
         $posts = $query->latest()->get();
 
-        return view('public-blog.blog.index', compact('posts', 'tags'));
+        // return view('public-blog.blog.index', compact('posts', 'tags'));
+        return view('public-blog.blog.blog-new', compact('posts', 'tags'));
     }
 
     public function storeComment(Request $request, $postId)
@@ -76,8 +78,10 @@ class PublicBlogController extends Controller
 
     public function show($slug)
     {
+        $tags = Tag::all();
         $post = Post::where('slug', $slug)->firstOrFail();
 
-        return view('public-blog.blog.show', compact('post'));
+        return view('public-blog.blog.detail', compact('post', 'tags'));
+        // return view('public-blog.blog.show', compact('post'));
     }
 }
