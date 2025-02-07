@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GivePermissionController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SubMenuController;
@@ -77,11 +78,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/master/tag/update/{id}', [TagController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/update']);
     Route::post('/master/tag/delete/{id}', [TagController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/master/tag/delete']);
 
-    Route::get('/cms/post', [UserController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post']);
-    Route::post('/cms/post/create', [UserController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/create']);
-    Route::get('/cms/post/edit/{id}', [UserController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/edit']);
-    Route::post('/cms/post/update', [UserController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/update']);
-    Route::post('/cms/post/delete', [UserController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/delete']);
+    Route::get('/cms/post/getDataAjax', [PostController::class, 'getDataAjax'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post']);
+    Route::get('/cms/post', [PostController::class, 'index'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post']);
+    Route::match(["get", "post"], '/cms/post/create', [PostController::class, 'create'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/create']);
+    Route::get('/cms/post/edit/{id}', [PostController::class, 'edit'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/edit']);
+    Route::post('/cms/post/update', [PostController::class, 'update'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/update']);
+    Route::post('/cms/post/delete/{id}', [PostController::class, 'delete'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/delete']);
+    Route::post('/cms/post/publish', [PostController::class, 'publish'])->middleware(['auth', 'verified', 'role_or_permission:developer|/cms/post/publish']);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

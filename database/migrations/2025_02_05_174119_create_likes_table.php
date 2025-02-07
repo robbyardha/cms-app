@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            // nullablemorph
+            // likeable_type => object yang disuka (Post / Comment)
+            // likeable_id => idobject yang disuka (posts.id / comments.id)
             $table->nullableMorphs('likeable');
             $table->timestamps();
 
