@@ -220,5 +220,11 @@
         });
 
 
+        $('#tags').select2({
+            placeholder: "Pilih tag",
+            allowClear: true
+        });
+
+
     });
 </script>

@@ -46,6 +46,22 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="tags" class="form-label">Tags</label>
+                        <select id="tags" class="form-control" name="tags[]" multiple="multiple">
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}" @if (in_array($tag->id, $post->tags->pluck('id')->toArray())) selected @endif>
+                                    {{ $tag->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('tags')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
                     <div class="mb-3">
                         <label for="content" class="form-label">{!! requiredFieldLabel('Post') !!}</label>
                         <textarea name="content" id="editor">{{ old('content', $post->content) }}</textarea>

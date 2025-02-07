@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -52,8 +54,10 @@ class PostController extends Controller
     {
 
         if ($request->isMethod("get")) {
+            $tags = Tag::all();
             $data = [
-                'title' => 'Create Post'
+                'title' => 'Create Post',
+                'tags' => $tags
             ];
             return view('post.create', $data);
         }
@@ -62,7 +66,8 @@ class PostController extends Controller
             $validator = Validator::make($request->all(), [
                 'title' => 'required|max:200',
                 'slug' => 'required|unique:posts,slug|max:200',
-                'content' => 'required'
+                'content' => 'required',
+                'tags' => 'required|array|min:1',
             ], [
                 'title.required' => 'Judul wajib diisi',
                 'title.max' => 'Judul maksimal 200 karakter',
@@ -72,6 +77,9 @@ class PostController extends Controller
                 'slug.max' => 'Slug maksimal 200 karakter',
 
                 'content.required' => 'Content wajib diisi',
+
+                'tags.required' => 'Tag wajib dipilih',
+                'tags.array' => 'Pilih tag dengan benar',
             ]);
 
             if ($validator->fails()) {
@@ -80,17 +88,29 @@ class PostController extends Controller
                     ->withInput();
             }
 
-            $dataSave = Post::create([
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'content' => $request->content,
-                'created_by' => auth()->user()->name,
-            ]);
 
-            try {;
+
+
+            DB::beginTransaction();
+            try {
+                $dataSave = Post::create([
+                    'title' => $request->title,
+                    'slug' => $request->slug,
+                    'content' => $request->content,
+                    'created_by' => auth()->user()->name,
+                ]);
+
+                if ($request->has('tags')) {
+                    $dataSave->tags()->attach($request->tags);
+                }
+
+                DB::commit();
+
                 return redirect('/cms/post')
                     ->with('success', 'Post berhasil dibuat!, dan masih tahap peninjauan');
             } catch (\Exception $e) {
+                DB::rollBack();
+
                 return redirect("/cms/post")
                     ->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage())
                     ->withInput();
@@ -105,10 +125,12 @@ class PostController extends Controller
     public function edit($id)
     {
         $decryptId = Crypt::decrypt($id);
-        $dataPost = Post::find($decryptId);
+        $dataPost = Post::with('tags')->find($decryptId);
+        $tags = Tag::all();
         $data = [
             'title' => 'Edit Post ' . $dataPost->title,
-            'post' => $dataPost
+            'post' => $dataPost,
+            'tags' => $tags,
         ];
         return view('post.edit', $data);
     }
@@ -120,7 +142,8 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:200',
             'slug' => "required|unique:posts,slug,$decryptId|max:200",
-            'content' => 'required'
+            'content' => 'required',
+            'tags' => 'required|array|min:1',
         ], [
             'title.required' => 'Judul wajib diisi',
             'title.max' => 'Judul maksimal 200 karakter',
@@ -130,6 +153,9 @@ class PostController extends Controller
             'slug.max' => 'Slug maksimal 200 karakter',
 
             'content.required' => 'Content wajib diisi',
+
+            'tags.required' => 'Tag wajib dipilih',
+            'tags.array' => 'Pilih tag dengan benar',
         ]);
 
         if ($validator->fails()) {
@@ -153,6 +179,10 @@ class PostController extends Controller
 
         try {;
             $postUpdate->save();
+
+            if ($request->has('tags')) {
+                $postUpdate->tags()->sync($request->tags);
+            }
 
             return redirect('/cms/post')
                 ->with('success', 'Post berhasil diupdate!');
